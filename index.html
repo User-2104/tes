@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Untuk ninakuu 💙💗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{--night:#0d1736;--dusk:#26357a;--sky:#bcd7ff;--blush:#ffc7da;--rose:#ff8fb1;--cream:#fff6fa;
+--serif:'Cormorant Garamond',Georgia,serif;--script:'Pinyon Script','Brush Script MT',cursive}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--night);color:var(--cream);font-family:var(--serif);font-size:19px}
+body{background:radial-gradient(120% 80% at 20% 0%,#3b4fa8 0%,transparent 55%),radial-gradient(100% 70% at 90% 100%,#b6558a 0%,transparent 60%),var(--night)}
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+h1,h2{font-family:var(--script);font-weight:400;line-height:1.15}
+h2{font-size:clamp(2.4rem,7vw,3.6rem);text-align:center;color:var(--blush);margin-bottom:.3em;text-shadow:0 0 24px #ff8fb166}
+.sub{text-align:center;font-style:italic;color:var(--sky);margin-bottom:1.6rem}
+
+/* splash */
+#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;padding:2rem;
+background:radial-gradient(circle at 50% 40%,#2a3b86,var(--night));transition:opacity 1.2s,visibility 1.2s}
+#splash.off{opacity:0;visibility:hidden}
+#splash h1{font-size:clamp(3rem,13vw,6rem);color:var(--blush);text-shadow:0 0 30px #ff8fb1aa}
+#splash p{font-style:italic;color:var(--sky);margin:.8rem 0 2rem}
+.btn{font:600 1.05rem var(--serif);letter-spacing:.04em;color:var(--night);background:linear-gradient(135deg,var(--blush),var(--sky));
+border:0;border-radius:99px;padding:.85em 2.2em;cursor:pointer;box-shadow:0 0 28px #ff8fb188;transition:transform .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 42px #ff8fb1cc}
+.btn:focus-visible,.dock button:focus-visible,#mus:focus-visible{outline:2px solid var(--blush);outline-offset:3px}
+.pulse{animation:pulse 2.4s infinite}@keyframes pulse{50%{transform:scale(1.07)}}
+
+/* pages */
+main{position:fixed;inset:0;z-index:1}
+.page{position:absolute;inset:0;overflow-y:auto;padding:max(2rem,env(safe-area-inset-top)) 1.2rem 7.5rem;
+opacity:0;visibility:hidden;transform:scale(.96) translateY(24px);filter:blur(14px);
+transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1),filter .9s,visibility .9s}
+.page.on{opacity:1;visibility:visible;transform:none;filter:none}
+.wrap{max-width:760px;margin:0 auto}
+#curtain{position:fixed;inset:0;z-index:40;pointer-events:none;background:linear-gradient(120deg,#ff8fb1,#7aa7ff);opacity:0;transition:opacity .45s}
+#curtain.go{opacity:.35}
+
+/* home */
+#home .wrap{min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hb{font-style:italic;color:var(--sky);letter-spacing:.08em}
+#home h1{font-size:clamp(4.2rem,19vw,9rem);color:#fff;text-shadow:0 0 18px #ff8fb1,0 0 60px #7aa7ff;margin:.1em 0}
+.nick{font-family:var(--script);font-size:clamp(1.8rem,6vw,2.6rem);color:var(--blush);height:1.4em;transition:opacity .6s}
+.type{font-size:1.25rem;font-style:italic;max-width:30ch;min-height:4.8em;margin-top:1.2rem;line-height:1.6}
+.bigheart{background:none;border:0;font-size:4rem;cursor:pointer;margin-top:.6rem;animation:beat 1.6s infinite;filter:drop-shadow(0 0 18px #ff8fb1)}
+@keyframes beat{50%{transform:scale(1.18)}}
+.bigheart:active{transform:scale(.85)}
+.cdmsg{margin-top:.6rem;font-style:italic;color:var(--sky)}
+
+/* letter */
+.env{position:relative;width:min(340px,86%);height:220px;margin:1rem auto 2rem;cursor:pointer;transition:transform .6s}
+.env.open{transform:translateY(40px) scale(.7);height:120px;margin-bottom:0}
+.env .b{position:absolute;inset:0;background:linear-gradient(160deg,var(--sky),#8fb0ee);border-radius:10px;box-shadow:0 18px 40px #0006}
+.env .f{position:absolute;left:0;right:0;top:0;height:60%;background:linear-gradient(160deg,#cfe1ff,#9db9f2);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;border-radius:10px 10px 0 0;z-index:2}
+.env.open .f{transform:rotateX(180deg)}
+.env .h{position:absolute;left:50%;top:50%;transform:translate(-50%,-30%);font-size:2.4rem;z-index:3;transition:opacity .4s;filter:drop-shadow(0 0 8px #ff8fb1)}
+.env.open .h{opacity:0}
+.hint{text-align:center;font-style:italic;color:var(--sky)}
+.letter{max-height:0;overflow:hidden;opacity:0;transition:max-height 1.6s ease,opacity 1s .3s;background:linear-gradient(180deg,#fffafc,#ffeaf2);
+color:#4a2f55;border-radius:10px;padding:0 1.6rem;box-shadow:0 20px 50px #0007}
+.letter.open{max-height:12000px;opacity:1;padding:2rem 1.6rem;margin-top:1rem}
+.letter p{margin-bottom:1em;line-height:1.75;font-size:1.12rem}
+.letter .to{font-family:var(--script);font-size:2rem;color:#c2477a}
+.letter .sig{font-family:var(--script);font-size:2rem;color:#c2477a;text-align:right}
+
+/* gallery */
+.car{position:relative}
+.track{position:relative;display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:1.5rem calc(50% - min(39vw,190px)) 2rem;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 min(78vw,380px);scroll-snap-align:center;transform:scale(.84);opacity:.5;transition:transform .5s,opacity .5s}
+.slide.act{transform:scale(1);opacity:1}
+.slide .pol{user-select:none}
+.arw{position:absolute;top:44%;z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid #ffffff55;background:#0d1736cc;color:var(--blush);font-size:1.8rem;line-height:1;cursor:pointer;left:4px;backdrop-filter:blur(8px)}
+.arw.nx{left:auto;right:4px}
+.arw:hover{background:var(--rose);color:#fff}
+.dots{display:flex;gap:.5rem;justify-content:center;margin-bottom:.8rem}
+.dots button{width:9px;height:9px;border-radius:99px;border:0;background:#ffffff55;cursor:pointer;transition:.4s;padding:0}
+.dots button.on{width:28px;background:var(--blush)}
+.pol{background:#fffafc;padding:.7rem .7rem 1rem;border-radius:6px;box-shadow:0 14px 30px #0007;cursor:pointer;
+transform:rotate(var(--r));transition:transform .4s,box-shadow .4s;color:#4a2f55;text-align:center}
+.pol:hover{transform:rotate(0) scale(1.06);box-shadow:0 20px 44px #ff8fb166}
+.ph{aspect-ratio:4/5;border-radius:3px;overflow:hidden;display:grid;place-items:center;font-size:3rem;
+background:linear-gradient(135deg,var(--sky),var(--blush))}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pol p{font-family:var(--script);font-size:1.5rem;margin-top:.5rem;color:#c2477a}
+#lb{position:fixed;inset:0;z-index:70;background:#070d24ee;display:none;place-items:center;padding:1.5rem;cursor:pointer;flex-direction:column;gap:1rem}
+#lb.on{display:flex}
+#lb .ph{width:min(86vw,440px);box-shadow:0 0 60px #ff8fb166}
+#lb p{font-family:var(--script);font-size:2rem;color:var(--blush)}
+
+/* cake */
+.cakebox{text-align:center}
+.cakebox svg{width:min(320px,80%);height:auto;overflow:visible;cursor:pointer;filter:drop-shadow(0 20px 30px #0008)}
+.flame{transform-origin:center bottom;animation:fl .5s infinite alternate;transition:opacity .4s}
+.flame.out{opacity:0;animation:none}
+@keyframes fl{from{transform:scale(1) rotate(-3deg)}to{transform:scale(1.15,1.25) rotate(3deg)}}
+.wish{min-height:3rem;margin:1rem 0;font-family:var(--script);font-size:2rem;color:var(--blush)}
+
+/* secrets */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem}
+.card{perspective:900px;height:230px;cursor:pointer}
+.card i{position:absolute;inset:0;transition:transform .9s;transform-style:preserve-3d;font-style:normal}
+.card.flip i{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:grid;place-items:center;text-align:center;padding:1.2rem}
+.fr{background:linear-gradient(145deg,#ffffff1c,#ffffff08);border:1px solid #ffffff44;backdrop-filter:blur(10px)}
+.fr b{font-family:var(--script);font-size:2.1rem;color:var(--blush);font-weight:400;display:block}
+.fr small{color:var(--sky);font-style:italic}
+.bk{transform:rotateY(180deg);background:linear-gradient(145deg,var(--blush),var(--sky));color:#3a2450;font-size:1.08rem;line-height:1.5;overflow:auto}
+
+/* dock */
+.dock{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;display:flex;gap:.2rem;padding:.4rem;
+border-radius:99px;background:#0d1736cc;border:1px solid #ffffff30;backdrop-filter:blur(14px);box-shadow:0 10px 40px #0008;max-width:96vw}
+.dock button{background:none;border:0;color:var(--sky);font:inherit;font-size:.78rem;padding:.5rem .75rem;border-radius:99px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;transition:.3s}
+.dock button em{font-style:normal;font-size:1.3rem}
+.dock button.on{background:linear-gradient(135deg,var(--blush),var(--sky));color:var(--night)}
+#mus{position:fixed;top:max(14px,env(safe-area-inset-top));right:14px;z-index:60;width:46px;height:46px;border-radius:50%;border:1px solid #ffffff44;
+background:#0d1736cc;color:var(--blush);font-size:1.3rem;cursor:pointer;backdrop-filter:blur(10px)}
+#mus.play{animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(min-width:700px){.dock button{padding:.55rem 1.2rem;font-size:.9rem}}
+/* toples */
+.jar{position:relative;width:min(340px,92%);height:340px;margin:0 auto 1.2rem;border:2px solid #ffffff66;border-radius:34px 34px 70px 70px;background:linear-gradient(160deg,#ffffff1f,#ffffff08);backdrop-filter:blur(6px);box-shadow:inset 0 0 40px #ffffff22,0 20px 50px #0006}
+.jar::before{content:'';position:absolute;left:12%;right:12%;top:-22px;height:22px;border-radius:10px 10px 0 0;background:linear-gradient(135deg,var(--blush),var(--sky))}
+.star{position:absolute;transform:translate(-50%,-50%);background:none;border:0;font-size:1.9rem;cursor:pointer;animation:flt 3.6s ease-in-out infinite alternate;animation-delay:var(--d);filter:drop-shadow(0 0 8px #ffd36b)}
+.star.mine{filter:drop-shadow(0 0 8px #ff8fb1)}
+@keyframes flt{to{transform:translate(-50%,-62%) rotate(10deg)}}
+.mk{max-width:520px;margin:0 auto;text-align:center}
+.mk textarea{width:100%;height:110px;border-radius:16px;border:1px solid #ffffff55;background:#ffffff14;color:var(--cream);font:1.05rem var(--serif);padding:.9rem;resize:none}
+.mk textarea::placeholder{color:#bcd7ffaa}
+.mk .row{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-top:.8rem}
+.btn.alt{background:#ffffff1f;color:var(--cream);box-shadow:none;border:1px solid #ffffff55}
+#pop{position:fixed;inset:0;z-index:70;background:#070d24dd;display:none;place-items:center;padding:1.5rem;cursor:pointer}
+#pop.on{display:grid}
+.pc{max-width:420px;background:linear-gradient(145deg,var(--blush),var(--sky));color:#3a2450;border-radius:22px;padding:2rem 1.6rem;text-align:center;box-shadow:0 0 60px #ff8fb166;animation:pp .5s}
+@keyframes pp{from{transform:scale(.6);opacity:0}}
+.pc p{font-size:1.2rem;line-height:1.6}.pc small{display:block;margin-top:1rem;font-style:italic;color:#7a3f6c}
+@media(max-width:420px){.dock button{padding:.45rem .45rem;font-size:.68rem}}
+@media(min-width:1000px){html,body{font-size:22px}.type{font-size:1.5rem;max-width:34ch}.letter.open{padding:2.6rem 3rem}.card{height:270px}.slide{flex-basis:400px}.track{padding-inline:calc(50% - 200px)}.arw{left:8%}.arw.nx{right:8%}.dock{bottom:22px}}
+@media(max-height:560px){#home .wrap{min-height:auto}.bigheart{font-size:3rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas><canvas id="fx"></canvas>
+<div id="curtain"></div>
+
+<div id="splash">
+  <div>
+    <p>Ada sesuatu yang kusiapkan untuk seseorang yang istimewa…</p>
+    <h1>Untuk nina kuuu</h1>
+    <p>Nyalakan suara ya, sayang 🎧</p>
+    <button class="btn pulse" id="start">Buka Hadiahmu 💌</button>
+  </div>
+</div>
+
+<audio id="aud" loop preload="auto" src="music/hingga-tua-bersama.mp3"></audio>
+<button id="mus" aria-label="Musik" title="Putar / jeda musik">♪</button>
+
+<main>
+  <section class="page on" id="home"><div class="wrap">
+    <div class="hb">Selamat ulang tahun</div>
+    <h1>nina kuuu</h1>
+    <div class="nick" id="nick"></div>
+    <p class="type" id="type"></p>
+    <button class="bigheart" id="bh" aria-label="Kirim cinta">💗</button>
+    <div class="cdmsg">Ketuk hatinya… <span id="hc">0</span> cinta terkirim</div>
+  </div></section>
+
+  <section class="page" id="surat"><div class="wrap">
+    <h2>Surat Cinta</h2><p class="sub">Ketuk amplopnya, ada yang ingin kubisikkan</p>
+    <div class="env" id="env"><div class="b"></div><div class="f"></div><div class="h">💗</div></div>
+    <div class="letter" id="letter"></div>
+  </div></section>
+
+  <section class="page" id="galeri"><div class="wrap" style="max-width:980px">
+    <h2>Galeri Kita</h2><p class="sub">Potongan waktu yang selalu kusimpan anjayy</p>
+    <div class="car">
+      <button class="arw" id="pv" aria-label="Sebelumnya">‹</button>
+      <div class="track" id="trk"></div>
+      <button class="arw nx" id="nx" aria-label="Berikutnya">›</button>
+      <div class="dots" id="dots"></div>
+    </div>
+    <p class="hint">Geser untuk melihat foto lain · ketuk untuk memperbesar</p>
+  </div></section>
+
+  <section class="page" id="kue"><div class="wrap cakebox">
+    <h2>Kue &amp; Harapan</h2><p class="sub">tiup lilinnya sayang kalo lilin asli dosa</p>
+    <svg viewBox="0 0 300 280" id="cake">
+      <ellipse cx="150" cy="260" rx="135" ry="16" fill="#0004"/>
+      <rect x="25" y="170" width="250" height="85" rx="14" fill="#8fb0ee"/>
+      <path d="M25 190q25 22 50 0t50 0 50 0 50 0 50 0v-14a14 14 0 0 0-14-14H39a14 14 0 0 0-14 14z" fill="#fff6fa"/>
+      <rect x="55" y="110" width="190" height="64" rx="12" fill="#ffc7da"/>
+      <path d="M55 130q24 20 47 0t48 0 48 0 47 0v-8a12 12 0 0 0-12-12H67a12 12 0 0 0-12 12z" fill="#fff6fa"/>
+      <g fill="#ff8fb1"><circle cx="90" cy="214" r="7"/><circle cx="150" cy="222" r="7"/><circle cx="210" cy="214" r="7"/></g>
+      <g id="candles"></g>
+    </svg>
+    <div class="wish" id="wish"></div>
+    <button class="btn" id="blow">Tiup Lilin 🎂</button>
+  </div></section>
+
+  <section class="page" id="rahasia"><div class="wrap" style="max-width:900px">
+    <h2>Pesan Rahasia</h2><p class="sub">bukak kartunya satu per satu… hanya untukmu</p>
+    <div class="sg" id="sg"></div>
+  </div></section>
+  <section class="page" id="toples"><div class="wrap">
+    <h2>Toples Harapan</h2><p class="sub">Tulis harapan dan kenanganmu, lalu simpan di sini</p>
+    <div class="jar" id="jar"></div>
+    <div class="mk">
+      <textarea id="mt" maxlength="600" placeholder="Tulis harapan atau kenangan indahmu di sini…"></textarea>
+      <div class="row">
+        <button class="btn" id="mAdd">Masukkan ke toples ✨</button>
+        <button class="btn alt" id="mSend">Kirim ke vandi ganteng 💌</button>
+      </div>
+      <p class="hint" style="margin-top:.8rem;font-size:.9rem">Tombol kirim akan membuka WhatsApp, tinggal tekan kirim ya.</p>
+    </div>
+  </div></section>
+</main>
+<div id="pop"><div class="pc"><p id="pt"></p><small id="ps"></small></div></div>
+
+<div id="lb"><div class="ph" id="lbp"></div><p id="lbc"></p></div>
+
+<nav class="dock" id="dock">
+  <button data-p="home" class="on"><em>🏠</em>Awal</button>
+  <button data-p="surat"><em>💌</em>Surat</button>
+  <button data-p="galeri"><em>📷</em>Galeri</button>
+  <button data-p="kue"><em>🎂</em>Kue</button>
+  <button data-p="rahasia"><em>🔐</em>Rahasia</button>
+  <button data-p="toples"><em>⭐</em>Toples</button>
+</nav>
+
+<script>
+/* ===== EDIT DI SINI ===== */
+const CFG={
+  tanggal:'2026-10-28',
+  panggilan:['Sayangku','Cintaku','Cantikku','Manisku','Imutku'],
+  pembuka:'Hari ini dunia kedatangan seseorang yang paling berharga bagiku. Selamat ulang tahun, sayang.',
+  surat:[
+    "happy birthday sayangggkuu cintakuuu, perempuan paling cantik kesayangannya akuuu 😚💙🎂🫶🏻",
+    "selamat bertambah umur yaa sayanggg, semoga di umur kamu yang sekarang ini kamu selalu dikasih kesehatan, panjang umur, rezeki yang lancar, dimudahkan semua urusannya, dilancarkan semua langkahnya, dan apa pun yang kamu inginkan semoga satu per satu bisa tercapai yaa sayanggg. semoga kamu selalu dikelilingi hal-hal baik, orang-orang baik, dan selalu punya alasan buat tersenyum setiap harinya. aamiin ya allahh ?🤲🏼",
+    "sayanggg, semoga kamu makin jadi anak yang sholehah, makin rajin ibadahnya, makin dekat sama allah, makin baik lagi ke depannya, dan selalu dijaga sama allah di mana pun kamu berada. semoga allah selalu lindungi kamu dari hal-hal yang nggak baik, dijauhkan dari kesedihan, dan dikasih hati yang selalu tenang yaa sayangkuuu 💙🥺",
+    "terus yang paling pentinggg, aku berdoa banget semoga semua penyakit yang kamu rasain selama ini diangkat sama allah, sayanggg. semoga gerd kamu makin membaik, sesak napas kamu nggak kambuh-kambuh lagi, badan kamu selalu sehat, dan kamu nggak perlu ngerasain sakit yang bikin kamu nggak nyaman lagi. aku pengen kamu sehat terus, bisa ketawa lepas, bisa beraktivitas tanpa harus nahan sakit, dan bisa menjalani hari-hari kamu dengan bahagia. kalau bisa semua rasa sakitnya diganti sama kebahagiaan ya allahh, aku cuma pengen perempuan kesayanganku ini sehat terusss 🥹💙 aamiin ya rabbal alamiin.",
+    "kadang aku masih suka mikir yaa sayanggg, lucu banget gimana awalnya kita bisa kek gini gara-gara kkn. awalnya kita cuma dipertemukan karena keadaan sama modus ku juga sih trs nggak nyangka kalau ternyata dari pertemuan itu aku bisa kenal sama kamu, bisa sedekat ini sama kamu, dan akhirnya bisa sayang banget sama kamu. siapa sangka orang yang awalnya aku kenal dari samara malah jadi orang yang sekarang punya tempat spesial banget di hati aku. kalau diingat-ingat rasanya bersyukur bangettt, karena ternyata dari sekian banyak orang yang bisa aku temui, allah malah mempertemukan aku sama kamuuu 🥹💗",
+    "aku nggak tau ke depannya kita bakal ngelewatin berapa banyak hal lagi, tapi aku berharap banget kita bisa terus sama-sama yaa sayanggg. aku pengen kita terus belajar buat saling ngerti, saling jaga, saling sabar, dan saling memperbaiki diri. aku tau aku juga masih banyak kurangnya, masih kadang bikin kamu kesel, bikin kamu sedih, atau belum bisa jadi yang terbaik buat kamu. tapi percayalah sayang, aku selalu mau belajar jadi lebih baik buat hubungan kita.",
+    "terusss buat kamu, semoga makin sayang sama aku, makin ngerti aku, makin mau dengerin aku kalau aku ngasih tau sesuatu yang baik buat kamu, dan semoga kita bisa sama-sama nurunin ego masing-masing yaa wkwkwk bukan berarti kamu harus selalu ngikutin semua mau aku, tapi aku pengen kita bisa saling dengerin, saling menghargai, dan percaya kalau apa yang kita omongin itu karena kita peduli satu sama lain. aku juga bakal belajar buat lebih dengerin kamu, lebih ngerti perasaan kamu, dan nggak cuma mau dimengerti ajaaa.",
+    "makasih yaa sayanggg udah hadir di hidup aku, makasih udah jadi bagian dari cerita aku, makasih udah bertahan sejauh ini sama aku, dan makasih karena udah ngasih aku kesempatan buat sayang sama kamu. aku seneng bisa kenal kamu, seneng bisa punya cerita sama kamu, dan seneng karena sekarang aku bisa manggil kamu sayanggg 🫶🏻💙",
+    "aku nggak minta kamu jadi orang yang sempurna kok sayang, aku cuma pengen kamu bahagia, sehat, selalu merasa disayang, dan nggak pernah ngerasa sendirian. kalau kamu lagi capek, cerita sama aku yaa. kalau kamu lagi sedih, jangan dipendem sendiri. kalau kamu lagi sakit, jangan maksa diri kamu buat keliatan kuat. aku mungkin nggak selalu bisa nyelesain semua masalah kamu, tapi aku pengen selalu berusaha ada buat kamu dan nemenin kamu sebisa aku.",
+    "semoga di umur kamu yang baru ini kamu makin dewasa, makin sabar, makin kuat, makin sholehah, makin sayang sama keluarga, dan makin sayang juga sama akuuu wkwkwk 😭💗 semoga hubungan kita juga makin baik, makin kuat, makin dewasa, dan dijauhkan dari hal-hal yang bisa ngerusak hubungan kita. semoga allah selalu jaga hati kita, jaga hubungan kita, dan kalau memang kita ditakdirkan bersama, semoga allah mudahkan jalan kita sampai ke masa depan yang selama ini kita harapkan. aamiin ya allahh 🤲🏻💙",
+    "happy birthday sekali lagiii, sayangggkuu cintakuuu duniakuuu. sehat-sehat terus yaa perempuan kecil kesayanganku, jangan gampang sakit lagi, jangan lupa jaga diri, jangan telat makan, jangan terlalu capek, dan jangan suka bikin aku khawatir yaaa",
+    "aku sayang banget sama kamuuu, lebih dari yang bisa aku jelasin lewat chat sepanjang ini. semoga aku masih bisa nemenin kamu di ulang tahun-ulang tahun berikutnya, masih bisa jadi orang yang bikin kamu senyum, masih bisa dengerin semua cerita kamu, dan masih bisa genggam tangan kamu di setiap proses kehidupan kamu.",
+    "dari pertemuan kita waktu kkn sampai sekarang, aku nggak pernah nyangka kalau kamu bakal jadi sespesial ini buat aku. semoga cerita kita nggak berhenti sampai di sini yaa sayanggg, semoga masih panjang banget cerita yang bisa kita buat berdua.",
+    "i love you so muchhh, sayangkuuu cintakuuu. bahagia terus yaa, sehat terus yaa, panjang umur yaa, dan jangan pernah lupa kalau ada aku yang sayang banget sama kamuuu. HAPPY BIRTHDAYYYY, MY FAVORITE PERSONNNN 😚💙🎂💋🫂💗"
+  ],
+  ttd:'maap kepanjangan sayang hehe 💙',
+  foto:[ /* taruh file di folder foto/ : 1.jpg, 2.jpg, ... */
+    {f:'foto/1.jpg',c:'Awal kita pap sayang walau belum pacaran wkwk'},
+    {f:'foto/2.jpg',c:'muka cantik favoritku💙'},
+    {f:'foto/3.jpg',c:'bunga pertama dari aku untuk kamu sayangg'},
+    {f:'foto/4.jpg',c:'ini kita maroon maroon lagi berdua sayang ke sekolah luucuu'},
+    {f:'foto/5.jpg',c:'nooo poto terakhir di pulau jambu'},
+    {f:'foto/6.jpg',c:'ini cewe tercantikku lagi megang card photobooth besok" kita banyakin lgi photobooth nyaa'}
+  ],
+  rahasia:[
+    {n:'Sayangku',m:'Kamu adalah alasan aku percaya bahwa hal baik itu nyata.'},
+    {n:'Cintaku',m:'Kalau boleh memilih lagi, aku tetap memilih kamu. Setiap kali, tanpa ragu.'},
+    {n:'Cantikku',m:'Bukan hanya wajahmu, tapi hatimu yang paling membuatku jatuh cinta.'},
+    {n:'Manisku',m:'Janjiku: aku akan terus belajar menjadi lebih baik untukmu.'},
+    {n:'Imutku',m:'Aku ingin menua bersamamu, sampai rambut kita sama-sama memutih. 🤍'}
+  ],
+  wa:'6282172139370', /* GANTI: nomor WhatsApp-mu, format 62 tanpa 0 dan tanpa + */
+  harapan:'Semoga semua harapanmu terkabul, nina kuuu 💫'
+};
+/* ========================= */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+
+/* musik: satu elemen audio, tidak pernah dihentikan saat pindah halaman */
+const aud=$('#aud'),mus=$('#mus');
+aud.volume=.7;
+function playM(){aud.play().then(()=>mus.classList.add('play')).catch(()=>{})}
+mus.onclick=()=>{aud.paused?playM():(aud.pause(),mus.classList.remove('play'))};
+$('#start').onclick=()=>{playM();$('#splash').classList.add('off');burst(innerWidth/2,innerHeight/2,120);setTimeout(startTy,900)};
+
+/* navigasi + transisi */
+let cur='home';
+function go(p){
+  if(p===cur)return;
+  const c=$('#curtain');c.classList.add('go');
+  setTimeout(()=>{
+    $('#'+cur).classList.remove('on');
+    const n=$('#'+p);n.classList.add('on');n.scrollTop=0;cur=p;
+    $$('.dock button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+    c.classList.remove('go');
+  },320);
+}
+$$('.dock button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+
+/* beranda */
+const nk=$('#nick');let ni=0;
+function nick(){nk.style.opacity=0;setTimeout(()=>{nk.textContent=CFG.panggilan[ni++%CFG.panggilan.length]+' 💗';nk.style.opacity=1},500)}
+nick();setInterval(nick,2600);
+const tx=CFG.pembuka;let ti=0;
+function startTy(){if(ti<=tx.length){$('#type').textContent=tx.slice(0,ti++);setTimeout(startTy,60)}}
+let hc=0;$('#bh').onclick=e=>{$('#hc').textContent=++hc;const r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,18,['#ff8fb1','#ffc7da','#fff'])};
+
+/* surat */
+$('#letter').innerHTML=`<p class="to">Untuk nina kuuu, sayangku,</p>`+CFG.surat.map(t=>`<p>${t}</p>`).join('')+`<p class="sig">${CFG.ttd}</p>`;
+$('#env').onclick=function(){this.classList.add('open');$('#letter').classList.add('open');burst(innerWidth/2,innerHeight/3,40,['#ff8fb1','#ffc7da'])};
+
+/* galeri */
+$('#trk').innerHTML=CFG.foto.map((x,i)=>`<div class="slide"><figure class="pol" style="--r:0deg" data-i="${i}"><div class="ph"><img src="${x.f}" alt="${x.c}" draggable="false" onerror="this.remove()">💗</div><p>${x.c}</p></figure></div>`).join('');
+$('#dots').innerHTML=CFG.foto.map((_,i)=>`<button aria-label="Foto ${i+1}" data-i="${i}"></button>`).join('');
+const trk=$('#trk'),sl=$$('.slide'),dt=$$('#dots button');
+function act(){const c=trk.scrollLeft+trk.clientWidth/2;let b=0,d=1e9;sl.forEach((e,i)=>{const m=Math.abs(e.offsetLeft+e.offsetWidth/2-c);if(m<d){d=m;b=i}});sl.forEach((e,i)=>e.classList.toggle('act',i===b));dt.forEach((e,i)=>e.classList.toggle('on',i===b));return b}
+function toS(i){i=Math.max(0,Math.min(sl.length-1,i));trk.scrollTo({left:sl[i].offsetLeft+sl[i].offsetWidth/2-trk.clientWidth/2,behavior:'smooth'})}
+trk.addEventListener('scroll',()=>requestAnimationFrame(act));addEventListener('resize',act);setTimeout(act,300);
+$('#pv').onclick=()=>toS(act()-1);$('#nx').onclick=()=>toS(act()+1);dt.forEach(e=>e.onclick=()=>toS(+e.dataset.i));
+addEventListener('keydown',e=>{if(cur==='galeri'){if(e.key==='ArrowRight')toS(act()+1);if(e.key==='ArrowLeft')toS(act()-1)}});
+let dn=0,sx=0,sc=0,mv=0;
+trk.addEventListener('mousedown',e=>{dn=1;mv=0;sx=e.pageX;sc=trk.scrollLeft;trk.style.scrollSnapType='none';trk.style.cursor='grabbing'});
+addEventListener('mousemove',e=>{if(!dn)return;const d=e.pageX-sx;if(Math.abs(d)>5)mv=1;trk.scrollLeft=sc-d});
+addEventListener('mouseup',()=>{if(!dn)return;dn=0;trk.style.scrollSnapType='';trk.style.cursor='';toS(act())});
+$$('.pol').forEach(p=>p.onclick=()=>{
+  if(mv)return;
+  const x=CFG.foto[p.dataset.i];
+  $('#lbp').innerHTML=`<img src="${x.f}" alt="" onerror="this.remove()">`;$('#lbc').textContent=x.c;$('#lb').classList.add('on');
+});
+$('#lb').onclick=()=>$('#lb').classList.remove('on');
+
+/* kue */
+$('#candles').innerHTML=[100,150,200].map(x=>`<g><rect x="${x-4}" y="78" width="8" height="34" rx="3" fill="#7aa7ff"/><ellipse class="flame" cx="${x}" cy="66" rx="7" ry="13" fill="#ffd36b"/></g>`).join('');
+let lit=true;
+function blow(){
+  if(!lit){$$('.flame').forEach(f=>f.classList.remove('out'));lit=true;$('#wish').textContent='';$('#blow').textContent='Tiup Lilin 🎂';return}
+  $$('.flame').forEach(f=>f.classList.add('out'));lit=false;
+  $('#wish').textContent=CFG.harapan;$('#blow').textContent='Nyalakan lagi 🕯️';
+  const r=$('#cake').getBoundingClientRect();burst(r.left+r.width/2,r.top+30,160);setTimeout(()=>burst(innerWidth*.2,innerHeight*.3,70),300);setTimeout(()=>burst(innerWidth*.8,innerHeight*.3,70),500);
+}
+$('#blow').onclick=blow;$('#cake').onclick=blow;
+
+/* rahasia */
+$('#sg').innerHTML=CFG.rahasia.map(r=>`<div class="card" tabindex="0"><i><div class="face fr"><div><b>${r.n}</b><small>ketuk untuk membuka 🔒</small></div></div><div class="face bk">${r.m}</div></i></div>`).join('');
+$$('.card').forEach(c=>{const f=()=>{c.classList.toggle('flip');if(c.classList.contains('flip')){const r=c.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,26,['#ff8fb1','#bcd7ff','#fff'])}};
+  c.onclick=f;c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f()}}});
+
+/* toples harapan */
+const LS='nina_toples';
+let mine=[];try{mine=JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){}
+function jar(){
+  const all=mine.map(t=>({t,m:1})),n=all.length,cols=4,rows=Math.ceil(n/cols);
+  const j=$('#jar');j.innerHTML=n?'':'<p class="hint" style="padding:6rem 1.5rem 0">Toplesnya masih kosong…<br>Isi dengan harapan pertamamu ✨</p>';
+  all.forEach((x,i)=>{
+    const r=i/cols|0,c=i%cols,b=document.createElement('button');
+    b.className='star'+(x.m?' mine':'');b.textContent=x.m?'💗':'⭐';b.setAttribute('aria-label',x.m?'Harapanmu':'Dari dia');
+    b.style.left=(14+c*24+(r%2?8:0)+Math.random()*6)+'%';b.style.top=(14+(r+.5)/rows*72-8+Math.random()*4)+'%';
+    b.style.setProperty('--d',(Math.random()*-3)+'s');
+    b.onclick=e=>{$('#pt').textContent=x.t;$('#ps').textContent=x.m?'harapanmu 💗':'';$('#pop').classList.add('on');burst(e.clientX,e.clientY,14,['#ffd36b','#ff8fb1','#fff'])};
+    j.appendChild(b);
+  });
+}
+jar();
+$('#pop').onclick=()=>$('#pop').classList.remove('on');
+$('#mAdd').onclick=()=>{
+  const v=$('#mt').value.trim();if(!v)return;
+  mine.push(v);try{localStorage.setItem(LS,JSON.stringify(mine))}catch(e){}
+  $('#mt').value='';jar();const r=$('#jar').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,60);
+};
+$('#mSend').onclick=()=>{
+  const v=$('#mt').value.trim(),list=v?[v]:mine;
+  if(!list.length){alert('Tulis dulu harapan atau kenanganmu ya 💗');return}
+  const msg='Harapan & kenangan dari ninaa 💗\n\n'+list.map(t=>'• '+t).join('\n');
+  window.open('https://wa.me/'+CFG.wa+'?text='+encodeURIComponent(msg),'_blank');
+};
+
+/* efek: kelopak & hati melayang (latar) */
+const bg=$('#bg'),bx=bg.getContext('2d'),fx=$('#fx'),fc=fx.getContext('2d');
+function rs(){bg.width=fx.width=innerWidth;bg.height=fx.height=innerHeight}rs();addEventListener('resize',rs);
+const cols=['#ffc7da','#ff8fb1','#bcd7ff','#ffffff'];
+const fl=Array.from({length:matchMedia('(max-width:700px)').matches?22:42},()=>mk(true));
+function mk(init){return{x:Math.random()*innerWidth,y:init?Math.random()*innerHeight:-20,s:6+Math.random()*12,v:.3+Math.random()*.8,w:Math.random()*6,r:Math.random()*6,c:cols[Math.random()*4|0],h:Math.random()<.4}}
+function heart(c,x,y,s){c.beginPath();c.moveTo(x,y+s/4);c.bezierCurveTo(x,y-s/2,x-s,y-s/2,x-s,y+s/4);c.bezierCurveTo(x-s,y+s,x,y+s*1.2,x,y+s*1.5);c.bezierCurveTo(x,y+s*1.2,x+s,y+s,x+s,y+s/4);c.bezierCurveTo(x+s,y-s/2,x,y-s/2,x,y+s/4);c.fill()}
+let P=[];
+function burst(x,y,n,c){for(let i=0;i<n;i++){const a=Math.random()*6.28,v=3+Math.random()*7;P.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-4,s:4+Math.random()*6,c:(c||['#ff8fb1','#ffc7da','#bcd7ff','#7aa7ff','#fff','#ffd36b'])[Math.random()*(c?c.length:6)|0],l:1,r:Math.random()*6,h:Math.random()<.3})}}
+(function loop(){
+  bx.clearRect(0,0,bg.width,bg.height);
+  fl.forEach((p,i)=>{p.y+=p.v;p.x+=Math.sin(p.w+=.012)*.6;p.r+=.01;if(p.y>innerHeight+20)fl[i]=mk();
+    bx.globalAlpha=.55;bx.fillStyle=p.c;
+    if(p.h)heart(bx,p.x,p.y,p.s/2);else{bx.save();bx.translate(p.x,p.y);bx.rotate(p.r);bx.beginPath();bx.ellipse(0,0,p.s,p.s/2,0,0,6.28);bx.fill();bx.restore()}});
+  fc.clearRect(0,0,fx.width,fx.height);
+  P=P.filter(p=>p.l>0);
+  P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.18;p.vx*=.99;p.l-=.008;p.r+=.2;fc.globalAlpha=Math.max(p.l,0);fc.fillStyle=p.c;
+    if(p.h)heart(fc,p.x,p.y,p.s/2);else{fc.save();fc.translate(p.x,p.y);fc.rotate(p.r);fc.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);fc.restore()}});
+  requestAnimationFrame(loop);
+})();
+/* percikan saat disentuh */
+addEventListener('pointerdown',e=>{if(!e.target.closest('.card,.btn,#cake'))burst(e.clientX,e.clientY,8,['#ffc7da','#bcd7ff','#fff'])});
+</script>
+</body>
+</html>
